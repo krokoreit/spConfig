@@ -12,6 +12,7 @@ The .cpp files in the /examples folder demonstrate the various options to use th
 
 This library also contains the spConfigBase class, which can be used to develop the same functionality as spConfig in a context outside of standard C++. As an example of this, see ESPspConfig, which has been developed and written specifically for programming ESP32 MCUs in platformio and Arduino framework.
 
+Both spConfig ans spConfigBase depend on the spObjectStore library ([download here](https://github.com/krokoreit/spObjectStore.git)), which is used under the hood to manage the configuration values.
 
 Enjoy
 
