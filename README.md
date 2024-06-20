@@ -7,9 +7,6 @@ It also provides the underlying spConfigBase class, which can be used to develop
 When using the read() and save() functions, the configuration values will be read from / saved to a 'config.ini' file in the current folder. If available, values from the 'config-default.ini' file will be read before trying to read from 'config.ini'. Such a default configuration allows for an optional method of specifying factory defaults for settings to be changed on user level in the application. 
 It also serves as an option to change the value of 'variables' without touching code, i.e. no need to recompile, just amend the config value and restart.
 
-
-ToDo: complete path setter / getter
-
 Set optional path or change the extension ('ini') or filenames for 'config' and 'config-default' to determine the location and names of files used.
 Autosave is disabled by default, but when enbled, the spConfig object will check for changes to the configuration values and saves them automatically.
 
@@ -162,6 +159,13 @@ std::string getConfigFileExtension();
 ```
 Replacing the standard 'ini' extention and retrieving the current extension used.
 
+
+#### setConfigFilePath() and getConfigFilePath() Functions
+```cpp
+void setConfigFilePath(std::string newPath);
+std::string getConfigFilePath();
+```
+Replace the default empty string with a path to be used for read() and save(). The newPath can be absolute or relative and trailing slashes will be added if not present. The only condition is that the folder given by newPath exists and the application has read / write rights.  
 
 
 </br>

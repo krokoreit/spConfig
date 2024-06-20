@@ -4,7 +4,7 @@
  */
 
 #include <spConfigBase.h>
-
+#include <filesystem>
 
 
 /*    PUBLIC    PUBLIC    PUBLIC    PUBLIC    
@@ -407,6 +407,27 @@ std::string spConfigBase::getConfigFileExtension()
   return m_configFileExtension;
 }
 
+void spConfigBase::setConfigFilePath(std::string newPath)
+{
+  // remove any trailing slashes, Windows or Linux style
+  size_t len = newPath.length();
+  if (len > 0)
+  {
+    std::filesystem::path path(newPath);
+    newPath = path.make_preferred().string();
+    len = newPath.length();
+    if ((len > 0) && (newPath.back() != path.preferred_separator))
+    {
+      newPath += path.preferred_separator;
+    }
+  }
+  m_configFilePath = newPath;
+}
+
+std::string spConfigBase::getConfigFilePath()
+{
+  return m_configFilePath;
+}
 
 
 /*    PRIVATE    PRIVATE    PRIVATE    PRIVATE

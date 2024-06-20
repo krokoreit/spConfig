@@ -172,6 +172,8 @@ class spConfigBase
     std::string getConfigDefaultFilename();
     void setConfigFileExtension(std::string newExtension);
     std::string getConfigFileExtension();
+    void setConfigFilePath(std::string newPath);
+    std::string getConfigFilePath();
 
 };
 
