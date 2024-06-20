@@ -28,7 +28,7 @@ spConfigBase::spConfigBase() : m_store(true)
 
 spConfigBase::~spConfigBase()
 {
-  if (m_hasChanged)
+  if (m_autosave)
   {
     save();
   }
