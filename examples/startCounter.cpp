@@ -54,7 +54,6 @@ int main(int argc, char *argv[])
   startCounterTotal++;
   config.setValue("system", "startCounterTotal", startCounterTotal);
   
-
   // ========================================================
   printf("done\n");
   return 0;

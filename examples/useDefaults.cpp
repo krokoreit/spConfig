@@ -4,12 +4,6 @@
  * 
  */
 
-
-/* 
-#include <stdio.h>
-#include <string>
- */
-
 #include <filesystem>
 
 #include <spConfig.h>
@@ -32,7 +26,6 @@ int main(int argc, char *argv[])
   config.setConfigDefaultFilename("default");
   config.setConfigFileExtension("conf");
   config.read();
-
 
   printf("configuration values read:\n");
   int32_t maybeInt32 = config.getInt32("maybe-overridden", "maybeInt32", 1111);
