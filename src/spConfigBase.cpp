@@ -1,5 +1,10 @@
 /**
  * @file spConfigBase.cpp
+ * @author krokoreit (krokoreit@gmail.com)
+ * @brief class to handle configuration data
+ * @version 2.0.0
+ * @date 2024-06-10
+ * @copyright Copyright (c) 2024
  * 
  */
 
@@ -34,6 +39,13 @@ spConfigBase::~spConfigBase()
   }
 }
 
+/**
+ * @brief setting configuration value for item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param value     value as char*
+ */
 void spConfigBase::setValue(const char* section, const char* key, const char* value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
@@ -48,6 +60,13 @@ void spConfigBase::setValue(const char* section, const char* key, const char* va
   setChanged();
 }
 
+/**
+ * @brief setting configuration value for item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param value     value as int32_t
+ */
 void spConfigBase::setValue(const char* section, const char* key, int32_t value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
@@ -62,6 +81,13 @@ void spConfigBase::setValue(const char* section, const char* key, int32_t value)
   setChanged();
 }
 
+/**
+ * @brief setting configuration value for item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param value     value as uint32_t
+ */
 void spConfigBase::setValue(const char* section, const char* key, uint32_t value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
@@ -76,6 +102,13 @@ void spConfigBase::setValue(const char* section, const char* key, uint32_t value
   setChanged();
 }
 
+/**
+ * @brief setting configuration value for item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param value     value as int64_t
+ */
 void spConfigBase::setValue(const char* section, const char* key, int64_t value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
@@ -90,6 +123,13 @@ void spConfigBase::setValue(const char* section, const char* key, int64_t value)
   setChanged();
 }
 
+/**
+ * @brief setting configuration value for item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param value     value as uint64_t
+ */
 void spConfigBase::setValue(const char* section, const char* key, uint64_t value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
@@ -104,6 +144,13 @@ void spConfigBase::setValue(const char* section, const char* key, uint64_t value
   setChanged();
 }
 
+/**
+ * @brief setting configuration value for item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param value     value as double
+ */
 void spConfigBase::setValue(const char* section, const char* key, double value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
@@ -118,6 +165,13 @@ void spConfigBase::setValue(const char* section, const char* key, double value)
   setChanged();
 }
 
+/**
+ * @brief setting configuration value for item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param value     value as bool
+ */
 void spConfigBase::setValue(const char* section, const char* key, bool value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
@@ -132,7 +186,13 @@ void spConfigBase::setValue(const char* section, const char* key, bool value)
   setChanged();
 }
 
-
+/**
+ * @brief get configuration value object
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @return spConfigValue*   pointer to object
+ */
 spConfigValue* spConfigBase::getConfigValue(const char* section, const char* key)
 {
   spConfigValue* cv = m_store.getObj(makeId(section, key));
@@ -143,6 +203,14 @@ spConfigValue* spConfigBase::getConfigValue(const char* section, const char* key
   return cv;
 }
 
+/**
+ * @brief return the value of item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param default_value  value to use if no entry under section / key
+ * @return const char*  value as char*
+ */
 const char* spConfigBase::getCStr(const char* section, const char* key, const char* default_value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key));
@@ -153,6 +221,14 @@ const char* spConfigBase::getCStr(const char* section, const char* key, const ch
   return default_value;
 }
 
+/**
+ * @brief return the value of item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param default_value  value to use if no entry under section / key
+ * @return const char*  value as std::string
+ */
 std::string spConfigBase::getString(const char* section, const char* key, const char* default_value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key));
@@ -163,6 +239,14 @@ std::string spConfigBase::getString(const char* section, const char* key, const 
   return std::string(default_value);
 }
 
+/**
+ * @brief return the value of item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param default_value  value to use if no entry under section / key
+ * @return const char*  value as int32_t
+ */
 int32_t spConfigBase::getInt32(const char* section, const char* key, int32_t default_value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key));
@@ -173,6 +257,14 @@ int32_t spConfigBase::getInt32(const char* section, const char* key, int32_t def
   return default_value;
 }
 
+/**
+ * @brief return the value of item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param default_value  value to use if no entry under section / key
+ * @return const char*  value as uint32_t
+ */
 int32_t spConfigBase::getUInt32(const char* section, const char* key, uint32_t default_value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key));
@@ -183,6 +275,14 @@ int32_t spConfigBase::getUInt32(const char* section, const char* key, uint32_t d
   return default_value;
 }
 
+/**
+ * @brief return the value of item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param default_value  value to use if no entry under section / key
+ * @return const char*  value as int64_t
+ */
 int64_t spConfigBase::getInt64(const char* section, const char* key, int64_t default_value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key));
@@ -193,6 +293,14 @@ int64_t spConfigBase::getInt64(const char* section, const char* key, int64_t def
   return default_value;  
 }
 
+/**
+ * @brief return the value of item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param default_value  value to use if no entry under section / key
+ * @return const char*  value as uint64_t
+ */
 int64_t spConfigBase::getUInt64(const char* section, const char* key, uint64_t default_value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key));
@@ -203,6 +311,14 @@ int64_t spConfigBase::getUInt64(const char* section, const char* key, uint64_t d
   return default_value;
 }
 
+/**
+ * @brief return the value of item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param default_value  value to use if no entry under section / key
+ * @return const char*  value as double
+ */
 double spConfigBase::getDouble(const char* section, const char* key, double default_value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key));
@@ -213,6 +329,14 @@ double spConfigBase::getDouble(const char* section, const char* key, double defa
   return default_value;
 }
 
+/**
+ * @brief return the value of item with given section and key parameters
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @param default_value  value to use if no entry under section / key
+ * @return const char*  value as bool
+ */
 bool spConfigBase::getBool(const char* section, const char* key, bool default_value)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key));
@@ -223,21 +347,33 @@ bool spConfigBase::getBool(const char* section, const char* key, bool default_va
   return default_value;
 }
 
-
+/**
+ * @brief returns whether an item with given section and key parameters exists
+ * 
+ * @param section   name of section 
+ * @param key       name of key
+ * @return true / false 
+ */
 bool spConfigBase::exists(const char* section, const char* key)
 {
   spConfigValue *cv = m_store.getObj(makeId(section, key));
   return (cv != nullptr);
 }
 
-
+/**
+ * @brief returns whether the config object holds any changed and not yet saved values
+ * 
+ * @return true / false 
+ */
 bool spConfigBase::changed()
 {
   return m_hasChanged;
 }
 
-
-
+/**
+ * @brief reset configuration to either 'filename-default.ini' or to an empty list, if no default file exists
+ * 
+ */
 void spConfigBase::reset()
 {
   if (!canUseFS())
@@ -257,7 +393,10 @@ void spConfigBase::reset()
 }
 
 
-
+/**
+ * @brief try to read configuration data from 'config-default.ini' file and 'config.ini' file
+ * 
+ */
 void spConfigBase::read(){
  
 //ToDo
@@ -278,7 +417,10 @@ printf("reading configuration\n");
   m_hasChanged = false;
 }
 
-
+/**
+ * @brief save configuration values to the 'config.ini' file when values have previously been changed 
+ * 
+ */
 void spConfigBase::save()
 {
   if (!m_hasChanged || !canUseFS())
@@ -309,7 +451,6 @@ printf("spConfigBase::save() could not allocate file buffer of size %d\n", SPCON
     m_filenameUsed.append(m_configFileExtension);
   }
 
-
 // ToDo external print
 printf("saving %s\n", m_filenameUsed.c_str());
 
@@ -324,7 +465,6 @@ printf("saving %s\n", m_filenameUsed.c_str());
 
   // release buffer and return success
   free(m_pFileBuf);
-
 
   m_hasChanged = false;
 }
@@ -368,6 +508,11 @@ bool spConfigBase::getAutosave()
 }
 
 
+/**
+ * @brief set name of the configuration file, the standard is 'config'
+ * 
+ * @param newName 
+ */
 void spConfigBase::setConfigFilename(std::string newName)
 {
   if (newName.length() > 0)
@@ -376,11 +521,21 @@ void spConfigBase::setConfigFilename(std::string newName)
   }
 }
 
+/**
+ * @brief return the name of the configuration file
+ * 
+ * @return std::string 
+ */
 std::string spConfigBase::getConfigFilename()
 {
   return m_configFilename;
 }
 
+/**
+ * @brief set name of the default configuration file, the standard is 'config-default'
+ * 
+ * @param newName 
+ */
 void spConfigBase::setConfigDefaultFilename(std::string newName)
 {
   if (newName.length() > 0)
@@ -389,11 +544,21 @@ void spConfigBase::setConfigDefaultFilename(std::string newName)
   }
 }
 
+/**
+ * @brief return the name of the default configuration file
+ * 
+ * @return std::string 
+ */
 std::string spConfigBase::getConfigDefaultFilename()
 {
   return m_configDefaultFilename;
 }
 
+/**
+ * @brief set extension of the configuration file, the standard is 'ini'
+ * 
+ * @param newExtension 
+ */
 void spConfigBase::setConfigFileExtension(std::string newExtension)
 {
   if (newExtension.length() > 0)
@@ -402,11 +567,22 @@ void spConfigBase::setConfigFileExtension(std::string newExtension)
   }
 }
 
+/**
+ * @brief return the extension of the configuration file
+ * 
+ * @return std::string 
+ */
 std::string spConfigBase::getConfigFileExtension()
 {
   return m_configFileExtension;
 }
 
+/**
+ * @brief set the path of the configuration file, the standard is an empty string, meaning 
+ *        the files are located in the application directory
+ * 
+ * @param newPath 
+ */
 void spConfigBase::setConfigFilePath(std::string newPath)
 {
   // remove any trailing slashes, Windows or Linux style
@@ -424,6 +600,11 @@ void spConfigBase::setConfigFilePath(std::string newPath)
   m_configFilePath = newPath;
 }
 
+/**
+ * @brief return the path of the configuration file
+ * 
+ * @return std::string 
+ */
 std::string spConfigBase::getConfigFilePath()
 {
   return m_configFilePath;
@@ -752,12 +933,14 @@ printf("spConfigBase::parseIniFile() for %s\n", m_filenameUsed.c_str());
               }
             }
 
-            //  abc=de    lineLength  6
-            //  ...e      equalPos    3
-            //  abcdef    lineLength  6
-            //  ......    equalPos    -1 -> 6
-            //  abcde=    lineLength  6
-            //  .....e    equalPos    5
+            /*
+              abc=de    lineLength  6
+              ...e      equalPos    3
+              abcdef    lineLength  6
+              ......    equalPos    -1 -> 6
+              abcde=    lineLength  6
+              .....e    equalPos    5
+            */
 
             // equalPos could be -1 for no value entry
             if (equalPos == -1)
