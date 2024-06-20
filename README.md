@@ -1,18 +1,16 @@
 # spConfig Library
 
-This library provides the spConfig class for managing configuration values as well as read them from / save them to configuation files in C++.
-
-It also provides the underlying spConfigBase class, which can be used to develop the same functionality in a context outside of standard C++. As an example of this, see ESPspConfig, which has been developed and written speficically for programming ESP32 MCUs in platformio and Arduino framework.
+This library provides the spConfig class for managing configuration values as well as read them from / save them to configuration files in C++.
 
 When using the read() and save() functions, the configuration values will be read from / saved to a 'config.ini' file in the current folder. If available, values from the 'config-default.ini' file will be read before trying to read from 'config.ini'. Such a default configuration allows for an optional method of specifying factory defaults for settings to be changed on user level in the application. 
 It also serves as an option to change the value of 'variables' without touching code, i.e. no need to recompile, just amend the config value and restart.
 
 Set optional path or change the extension ('ini') or filenames for 'config' and 'config-default' to determine the location and names of files used.
-Autosave is disabled by default, but when enbled, the spConfig object will check for changes to the configuration values and saves them automatically.
-
-ToDo: example
+Autosave is disabled by default, but when enabled, the spConfig object will check for changes to the configuration values and saves them automatically.
 
 The .cpp files in the /examples folder demonstrate the various options to use the functions.
+
+This library also contains the spConfigBase class, which can be used to develop the same functionality as spConfig in a context outside of standard C++. As an example of this, see ESPspConfig, which has been developed and written specifically for programming ESP32 MCUs in platformio and Arduino framework.
 
 
 Enjoy
@@ -92,7 +90,6 @@ spConfigValue* getConfigValue(const char* section, const char* key);
 ```
 Return an spConfigValue object, which allows access to the value via its asXYZ() functions, e.g. asString(), asInt32(), .... There is normally no need to work with spConfigValue objects directly, as the following getXYZ() functions of spConfig provide easier access to the values stored.
 
-
 #### get...() Functions
 ```cpp
 const char* getCStr(const char* section, const char* key, const char* default_value = "");
@@ -108,15 +105,19 @@ Getting values requires to use the getter function suitable for the returned typ
 
 All function have an optional default_value parameter to specify an return value in case the requested value does not exist, i.e. no entry for the section - key combination. Otherwise, the function will return either "", 0 or false.
 
+#### exists() Function
 ```cpp
 bool exists(const char* section, const char* key);
 ```
 To determine whether a value exists with these section and key parameters. 
 
-
+#### changed() Function
 ```cpp
 bool changed();
 ```
+Returns whether the config object holds any changed and not yet saved values. As such it may act as an indicator for the need to save() the content. If autosave is set to true, the changed() status will automatically return to false after the next autosave is performed.
+
+#### reset() Function
 ```cpp
 void reset();
 ```
@@ -159,7 +160,6 @@ std::string getConfigFileExtension();
 ```
 Replacing the standard 'ini' extention and retrieving the current extension used.
 
-
 #### setConfigFilePath() and getConfigFilePath() Functions
 ```cpp
 void setConfigFilePath(std::string newPath);
@@ -170,6 +170,6 @@ Replace the default empty string with a path to be used for read() and save(). T
 
 </br>
 
-## Licence
-MIT licence  
+## License
+MIT license  
 Copyright &copy; 2024 by krokoreit
