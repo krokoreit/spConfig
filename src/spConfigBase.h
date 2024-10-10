@@ -2,13 +2,14 @@
  * @file spConfigBase.h
  * @author krokoreit (krokoreit@gmail.com)
  * @brief class to handle configuration data
- * @version 2.0.0
- * @date 2024-06-10
+ * @version 2.1.0
+ * @date 2024-10-09
  * @copyright Copyright (c) 2024
  * 
  * Version history:
- * v1 original develoment for use in platformio / arduino on an ESP32 project
- * v2 changed to standard C++ 
+ * v1       original develoment for use in platformio / arduino for an ESP32 project
+ * v2.0.0   changed to standard C++ 
+ * v2.1.0   updated to use spObjectStore v2.1.0
  *  
  */
 
@@ -31,7 +32,7 @@
 #endif
 
 #ifndef SPCONFIG_FILEBUFSIZE
-  #define SPCONFIG_FILEBUFSIZE  120
+  #define SPCONFIG_FILEBUFSIZE  1200
 #endif
 
 
@@ -55,7 +56,7 @@ class spConfigBase
     // 
     void setChanged();
     std::string makeId(const char* section, const char* key);
-    bool saveIniEntryCB(std::string id, spConfigValue *cv);
+    bool saveIniEntryCB(const std::string &id, const spConfigValue &cv);
     size_t trimLine(char* buf, size_t len);
     size_t eraseComments(char* buf, size_t len);
     bool parseIniFile(std::string filename);
@@ -82,14 +83,14 @@ class spConfigBase
     void setValue(const char* section, const char* key, bool value);
 
     spConfigValue* getConfigValue(const char* section, const char* key);
-    const char* getCStr(const char* section, const char* key, const char* default_value = "");
-    std::string getString(const char* section, const char* key, const char* default_value = "");
-    int32_t getInt32(const char* section, const char* key, int32_t default_value = 0);
-    int32_t getUInt32(const char* section, const char* key, uint32_t default_value = 0);
-    int64_t getInt64(const char* section, const char* key, int64_t default_value = 0);
-    int64_t getUInt64(const char* section, const char* key, uint64_t default_value = 0);
-    double getDouble(const char* section, const char* key, double default_value = 0.0);
-    bool getBool(const char* section, const char* key, bool default_value = false);
+    const char* getCStr(const char* section, const char* key, const char* defaultValue = "");
+    std::string getString(const char* section, const char* key, const char* defaultValue = "");
+    int32_t getInt32(const char* section, const char* key, int32_t defaultValue = 0);
+    int32_t getUInt32(const char* section, const char* key, uint32_t defaultValue = 0);
+    int64_t getInt64(const char* section, const char* key, int64_t defaultValue = 0);
+    int64_t getUInt64(const char* section, const char* key, uint64_t defaultValue = 0);
+    double getDouble(const char* section, const char* key, double defaultValue = 0.0);
+    bool getBool(const char* section, const char* key, bool defaultValue = false);
     bool exists(const char* section, const char* key);
     bool changed();
     void reset();

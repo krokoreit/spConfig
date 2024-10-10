@@ -2,8 +2,8 @@
  * @file spConfigBase.cpp
  * @author krokoreit (krokoreit@gmail.com)
  * @brief class to handle configuration data
- * @version 2.0.0
- * @date 2024-06-10
+ * @version 2.1.0
+ * @date 2024-10-09
  * @copyright Copyright (c) 2024
  * 
  */
@@ -26,7 +26,7 @@
       PUBLIC    PUBLIC    PUBLIC    PUBLIC    */
 
 
-spConfigBase::spConfigBase() : m_store(true)
+spConfigBase::spConfigBase() : m_store(ASC)
 {
 }
 
@@ -48,8 +48,12 @@ spConfigBase::~spConfigBase()
  */
 void spConfigBase::setValue(const char* section, const char* key, const char* value)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
-  if (!m_store.isAdded())
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
+  if (!cv)
+  {
+    m_store.addObjWithId(makeId(section, key), value);
+  }
+  else
   {
     if (value == cv->c_str())
     {
@@ -69,8 +73,12 @@ void spConfigBase::setValue(const char* section, const char* key, const char* va
  */
 void spConfigBase::setValue(const char* section, const char* key, int32_t value)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
-  if (!m_store.isAdded())
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
+  if (!cv)
+  {
+    m_store.addObjWithId(makeId(section, key), value);
+  }
+  else
   {
     if (value == cv->asInt32())
     {
@@ -90,8 +98,12 @@ void spConfigBase::setValue(const char* section, const char* key, int32_t value)
  */
 void spConfigBase::setValue(const char* section, const char* key, uint32_t value)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
-  if (!m_store.isAdded())
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
+  if (!cv)
+  {
+    m_store.addObjWithId(makeId(section, key), value);
+  }
+  else
   {
     if (value == cv->asUInt32())
     {
@@ -111,8 +123,12 @@ void spConfigBase::setValue(const char* section, const char* key, uint32_t value
  */
 void spConfigBase::setValue(const char* section, const char* key, int64_t value)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
-  if (!m_store.isAdded())
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
+  if (!cv)
+  {
+    m_store.addObjWithId(makeId(section, key), value);
+  }
+  else
   {
     if (value == cv->asInt64())
     {
@@ -132,8 +148,12 @@ void spConfigBase::setValue(const char* section, const char* key, int64_t value)
  */
 void spConfigBase::setValue(const char* section, const char* key, uint64_t value)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
-  if (!m_store.isAdded())
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
+  if (!cv)
+  {
+    m_store.addObjWithId(makeId(section, key), value);
+  }
+  else
   {
     if (value == cv->asUInt64())
     {
@@ -153,8 +173,12 @@ void spConfigBase::setValue(const char* section, const char* key, uint64_t value
  */
 void spConfigBase::setValue(const char* section, const char* key, double value)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
-  if (!m_store.isAdded())
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
+  if (!cv)
+  {
+    m_store.addObjWithId(makeId(section, key), value);
+  }
+  else
   {
     if (value == cv->asDouble())
     {
@@ -174,8 +198,12 @@ void spConfigBase::setValue(const char* section, const char* key, double value)
  */
 void spConfigBase::setValue(const char* section, const char* key, bool value)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key), true, value);
-  if (!m_store.isAdded())
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
+  if (!cv)
+  {
+    m_store.addObjWithId(makeId(section, key), value);
+  }
+  else
   {
     if (value == cv->asBool())
     {
@@ -195,8 +223,8 @@ void spConfigBase::setValue(const char* section, const char* key, bool value)
  */
 spConfigValue* spConfigBase::getConfigValue(const char* section, const char* key)
 {
-  spConfigValue* cv = m_store.getObj(makeId(section, key));
-  if (cv == nullptr)
+  spConfigValue* cv = m_store.getObjById(makeId(section, key));
+  if (!cv)
   {
     return &m_non_existant_configValue;
   }
@@ -208,17 +236,17 @@ spConfigValue* spConfigBase::getConfigValue(const char* section, const char* key
  * 
  * @param section   name of section 
  * @param key       name of key
- * @param default_value  value to use if no entry under section / key
+ * @param defaultValue  value to use if no entry under section / key
  * @return const char*  value as char*
  */
-const char* spConfigBase::getCStr(const char* section, const char* key, const char* default_value)
+const char* spConfigBase::getCStr(const char* section, const char* key, const char* defaultValue)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key));
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
   if (cv)
   {
     return cv->c_str();
   } 
-  return default_value;
+  return defaultValue;
 }
 
 /**
@@ -226,17 +254,17 @@ const char* spConfigBase::getCStr(const char* section, const char* key, const ch
  * 
  * @param section   name of section 
  * @param key       name of key
- * @param default_value  value to use if no entry under section / key
+ * @param defaultValue  value to use if no entry under section / key
  * @return const char*  value as std::string
  */
-std::string spConfigBase::getString(const char* section, const char* key, const char* default_value)
+std::string spConfigBase::getString(const char* section, const char* key, const char* defaultValue)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key));
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
   if (cv)
   {
     return cv->asString();
   } 
-  return std::string(default_value);
+  return std::string(defaultValue);
 }
 
 /**
@@ -244,17 +272,17 @@ std::string spConfigBase::getString(const char* section, const char* key, const 
  * 
  * @param section   name of section 
  * @param key       name of key
- * @param default_value  value to use if no entry under section / key
+ * @param defaultValue  value to use if no entry under section / key
  * @return const char*  value as int32_t
  */
-int32_t spConfigBase::getInt32(const char* section, const char* key, int32_t default_value)
+int32_t spConfigBase::getInt32(const char* section, const char* key, int32_t defaultValue)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key));
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
   if (cv)
   {
     return cv->asInt32();
   } 
-  return default_value;
+  return defaultValue;
 }
 
 /**
@@ -262,17 +290,17 @@ int32_t spConfigBase::getInt32(const char* section, const char* key, int32_t def
  * 
  * @param section   name of section 
  * @param key       name of key
- * @param default_value  value to use if no entry under section / key
+ * @param defaultValue  value to use if no entry under section / key
  * @return const char*  value as uint32_t
  */
-int32_t spConfigBase::getUInt32(const char* section, const char* key, uint32_t default_value)
+int32_t spConfigBase::getUInt32(const char* section, const char* key, uint32_t defaultValue)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key));
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
   if (cv)
   {
     return cv->asUInt32();
   } 
-  return default_value;
+  return defaultValue;
 }
 
 /**
@@ -280,17 +308,17 @@ int32_t spConfigBase::getUInt32(const char* section, const char* key, uint32_t d
  * 
  * @param section   name of section 
  * @param key       name of key
- * @param default_value  value to use if no entry under section / key
+ * @param defaultValue  value to use if no entry under section / key
  * @return const char*  value as int64_t
  */
-int64_t spConfigBase::getInt64(const char* section, const char* key, int64_t default_value)
+int64_t spConfigBase::getInt64(const char* section, const char* key, int64_t defaultValue)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key));
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
   if (cv)
   {
     return cv->asInt64();
   } 
-  return default_value;  
+  return defaultValue;  
 }
 
 /**
@@ -298,17 +326,17 @@ int64_t spConfigBase::getInt64(const char* section, const char* key, int64_t def
  * 
  * @param section   name of section 
  * @param key       name of key
- * @param default_value  value to use if no entry under section / key
+ * @param defaultValue  value to use if no entry under section / key
  * @return const char*  value as uint64_t
  */
-int64_t spConfigBase::getUInt64(const char* section, const char* key, uint64_t default_value)
+int64_t spConfigBase::getUInt64(const char* section, const char* key, uint64_t defaultValue)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key));
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
   if (cv)
   {
     return cv->asUInt64();
   } 
-  return default_value;
+  return defaultValue;
 }
 
 /**
@@ -316,17 +344,17 @@ int64_t spConfigBase::getUInt64(const char* section, const char* key, uint64_t d
  * 
  * @param section   name of section 
  * @param key       name of key
- * @param default_value  value to use if no entry under section / key
+ * @param defaultValue  value to use if no entry under section / key
  * @return const char*  value as double
  */
-double spConfigBase::getDouble(const char* section, const char* key, double default_value)
+double spConfigBase::getDouble(const char* section, const char* key, double defaultValue)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key));
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
   if (cv)
   {
     return cv->asDouble();
   } 
-  return default_value;
+  return defaultValue;
 }
 
 /**
@@ -334,17 +362,17 @@ double spConfigBase::getDouble(const char* section, const char* key, double defa
  * 
  * @param section   name of section 
  * @param key       name of key
- * @param default_value  value to use if no entry under section / key
+ * @param defaultValue  value to use if no entry under section / key
  * @return const char*  value as bool
  */
-bool spConfigBase::getBool(const char* section, const char* key, bool default_value)
+bool spConfigBase::getBool(const char* section, const char* key, bool defaultValue)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key));
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
   if (cv)
   {
     return cv->asBool();
   } 
-  return default_value;
+  return defaultValue;
 }
 
 /**
@@ -356,7 +384,7 @@ bool spConfigBase::getBool(const char* section, const char* key, bool default_va
  */
 bool spConfigBase::exists(const char* section, const char* key)
 {
-  spConfigValue *cv = m_store.getObj(makeId(section, key));
+  spConfigValue *cv = m_store.getObjById(makeId(section, key));
   return (cv != nullptr);
 }
 
@@ -398,9 +426,6 @@ void spConfigBase::reset()
  * 
  */
 void spConfigBase::read(){
- 
-//ToDo
-printf("reading configuration\n");
 
   if (!canUseFS())
   {
@@ -660,7 +685,7 @@ std::string spConfigBase::makeId(const char* section, const char* key)
  * @param cv  configvalue in store
  * @return true  for continue loop (as we want all values)
  */
-bool spConfigBase::saveIniEntryCB(std::string id, spConfigValue *cv)
+bool spConfigBase::saveIniEntryCB(const std::string &id, const spConfigValue &cv)
 {
 
   if (m_pFileBuf == nullptr)
@@ -712,7 +737,7 @@ printf("spConfigBase::saveIniEntryCB called with bad id %s\n", id.c_str());
   }
 
   // write key = value
-  len = snprintf(lineBuf, SPCONFIG_MAXLINELENGTH + 1, "%s=%s\n", key.c_str(), cv->c_str());
+  len = snprintf(lineBuf, SPCONFIG_MAXLINELENGTH + 1, "%s=%s\n", key.c_str(), cv.c_str());
   if (len > SPCONFIG_MAXLINELENGTH)
   {
 
@@ -879,7 +904,9 @@ printf("spConfigBase::parseIniFile() for %s\n", m_filenameUsed.c_str());
       // line by line
       lineLength = 0;
       c = m_pFileBuf[bPos++];
-      while (c != '\n')
+
+      // just looking \n = LF, as trimLine() will filter out \r = CR in Windows
+      while ((c != '\n') && (bPos <= received))
       {
         if (lineLength < SPCONFIG_MAXLINELENGTH)
         {
@@ -890,7 +917,8 @@ printf("spConfigBase::parseIniFile() for %s\n", m_filenameUsed.c_str());
         {
           
 //ToDo
-          printf("spConfigBase::parseIniFile(): line in %s exceeds maximum length of %d\n", m_filenameUsed.c_str(), SPCONFIG_MAXLINELENGTH);
+          lineBuf[40] = 0;
+          printf("spConfigBase::parseIniFile(): line in %s starting with '%s...' exceeds maximum length of %d\n", m_filenameUsed.c_str(), lineBuf, SPCONFIG_MAXLINELENGTH);
           c = '\n';
         }        
       }
@@ -906,7 +934,8 @@ printf("spConfigBase::parseIniFile() for %s\n", m_filenameUsed.c_str());
         if (lineLength > 0)
         {
           // section
-          if (lineBuf[0] == '['){
+          if (lineBuf[0] == '[')
+          {
             if (lineLength > 2 && lineBuf[lineLength-1] == ']')
             {
               memmove(lineBuf, lineBuf+1, lineLength-2);
@@ -918,8 +947,8 @@ printf("spConfigBase::parseIniFile() for %s\n", m_filenameUsed.c_str());
             }
             lineBuf[lineLength] = 0;
             section = std::string(lineBuf);
-          // key = value text within a section
           } 
+          // key = value text within a section
           else if(section.length() > 0)
           {
             equalPos = -1;
@@ -969,7 +998,7 @@ printf("spConfigBase::parseIniFile() for %s\n", m_filenameUsed.c_str());
                 }
               }
               // good to store with addObj to overwrite existing entry
-              m_store.addObj(makeId(section.c_str(), key.c_str()), value.c_str());
+              m_store.addObjWithId(makeId(section.c_str(), key.c_str()), value.c_str());
             }
           
           }

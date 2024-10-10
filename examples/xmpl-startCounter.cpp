@@ -5,7 +5,6 @@
  */
 
 #include <filesystem>
-
 #include <spConfig.h>
 
 spConfig config;
@@ -45,7 +44,7 @@ int main(int argc, char *argv[])
   else
   {
     config.setValue("system", "todayString", todayString);
-    startCounterToday = 0;
+    startCounterToday = 1;
   }
   config.setValue("system", "startCounterToday", startCounterToday);
   printf("Start Counter: %i\n", startCounterToday);
@@ -54,6 +53,7 @@ int main(int argc, char *argv[])
   startCounterTotal++;
   config.setValue("system", "startCounterTotal", startCounterTotal);
   
+
   // ========================================================
   printf("done\n");
   return 0;

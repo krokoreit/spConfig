@@ -2,10 +2,8 @@
  * @file spConfig.cpp
  * @author krokoreit (krokoreit@gmail.com)
  * @brief class to handle configuration values and files
- * 
- * @version 2.0.0
- * @date 2024-06-19
- * 
+ * @version 2.1.0
+ * @date 2024-10-09
  * @copyright Copyright (c) 2024
  * 
  */
@@ -165,10 +163,9 @@ uint64_t spConfig::timeSinceEpochMillisec() {
 /**
  * @brief ever running task, used to regularly check on _loopHandler() and other things
  * 
- * @param arg   pointer to object given to xTaskCreate()
+ * @param pConfig   pointer to object given to xTaskCreate()
  */
 void spConfig::config_loop_task(spConfig* pConfig) {
-  //spConfig* spC = reinterpret_cast<spConfig*>(arg);
   while (pConfig->getAutosave())
   {
     if (pConfig->changed())

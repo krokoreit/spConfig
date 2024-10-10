@@ -2,7 +2,7 @@
   "name": "spConfig",
   "description": "A library for managing configuration data and files.",
   "keywords": "cpp, library, configuration, .conf file, .ini file, krokoreit",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "authors":
   {
     "name": "krokoreit",
