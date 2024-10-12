@@ -602,6 +602,7 @@ std::string spConfigBase::getConfigFileExtension()
   return m_configFileExtension;
 }
 
+
 /**
  * @brief set the path of the configuration file, the standard is an empty string, meaning 
  *        the files are located in the application directory
@@ -610,16 +611,25 @@ std::string spConfigBase::getConfigFileExtension()
  */
 void spConfigBase::setConfigFilePath(std::string newPath)
 {
-  // remove any trailing slashes, Windows or Linux style
   size_t len = newPath.length();
   if (len > 0)
   {
-    std::filesystem::path path(newPath);
-    newPath = path.make_preferred().string();
-    len = newPath.length();
-    if ((len > 0) && (newPath.back() != path.preferred_separator))
+
+#ifdef SPCONFIG_WINDOWS_OS
+    // set preferred separator on Windows
+    for (size_t i = 0; i < len; i++)
     {
-      newPath += path.preferred_separator;
+      if (newPath[i] == '/')
+      {
+        newPath[i] = '\\';
+      }
+    }
+#endif
+
+    // append trailing separator, Windows or Linux style
+    if (newPath.back() != SPCONFIG_FILEPATH_SEPARATOR)
+    {
+      newPath += SPCONFIG_FILEPATH_SEPARATOR;
     }
   }
   m_configFilePath = newPath;

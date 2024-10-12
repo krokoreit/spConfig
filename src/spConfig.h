@@ -16,6 +16,7 @@
 #ifndef SPCONFIG_H
 #define SPCONFIG_H
 
+
 #include <thread>
 #include <spConfigBase.h>
 

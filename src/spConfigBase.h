@@ -27,6 +27,19 @@
 #include <spConfigValue.h>
 
 
+// SPCONFIG_FILEPATH_SEPARATOR for Windows and if not already defined
+#if defined WIN32 || defined _WIN32 || defined __CYGWIN__
+  #define SPCONFIG_WINDOWS_OS 1
+#endif
+
+#ifndef SPCONFIG_FILEPATH_SEPARATOR
+  #ifdef SPCONFIG_WINDOWS_OS
+    #define SPCONFIG_FILEPATH_SEPARATOR '\\'
+  #else
+    #define SPCONFIG_FILEPATH_SEPARATOR '/'
+  #endif
+#endif
+
 #ifndef SPCONFIG_MAXLINELENGTH
   #define SPCONFIG_MAXLINELENGTH  100
 #endif
