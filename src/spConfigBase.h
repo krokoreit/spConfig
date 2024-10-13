@@ -69,6 +69,8 @@ class spConfigBase
     // 
     void setChanged();
     std::string makeId(const char* section, const char* key);
+    bool ensureFileBuffer();
+    void freeFileBuffer();
     bool saveIniEntryCB(const std::string &id, const spConfigValue &cv);
     size_t trimLine(char* buf, size_t len);
     size_t eraseComments(char* buf, size_t len);

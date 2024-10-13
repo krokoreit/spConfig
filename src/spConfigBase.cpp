@@ -453,18 +453,13 @@ void spConfigBase::save()
     return;
   }
 
-  if (m_pFileBuf == nullptr)
+  if (!ensureFileBuffer())
   {
-    m_pFileBuf = (char*)malloc(SPCONFIG_FILEBUFSIZE);
-    if (m_pFileBuf == nullptr)
-    {
-
 //ToDo
-printf("spConfigBase::save() could not allocate file buffer of size %d\n", SPCONFIG_FILEBUFSIZE);
-
-      return;
-    }
+    printf("spConfigBase::save() aborted\n");
+    return;
   }
+
   // start of file & buffer
   m_fPos = 0;
   m_fileBufUsed = 0;
@@ -488,8 +483,8 @@ printf("saving %s\n", m_filenameUsed.c_str());
   // final write
   saveFile(m_filenameUsed, m_pFileBuf, m_fPos, m_fileBufUsed);
 
-  // release buffer and return success
-  free(m_pFileBuf);
+  // release buffer
+  freeFileBuffer();
 
   m_hasChanged = false;
 }
@@ -687,6 +682,35 @@ std::string spConfigBase::makeId(const char* section, const char* key)
   return ret;
 }
 
+/**
+ * @brief allocate file buffer and return success
+ * 
+ * @return true / false for success
+ */
+bool spConfigBase::ensureFileBuffer()
+{
+  if (m_pFileBuf == nullptr)
+  {
+    m_pFileBuf = (char*)malloc(SPCONFIG_FILEBUFSIZE);
+    if (m_pFileBuf == nullptr)
+    {
+//ToDo
+      printf("spConfigBase::ensureFileBuffer() could not allocate file buffer of size %d\n", SPCONFIG_FILEBUFSIZE);
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * @brief release file buffer AND set to nullptr
+ * 
+ */
+void spConfigBase::freeFileBuffer()
+{
+  free(m_pFileBuf);
+  m_pFileBuf = nullptr;
+}
 
 /**
  * @brief callback function for each entry in store
@@ -851,16 +875,11 @@ size_t spConfigBase::eraseComments(char* buf, size_t len)
 bool spConfigBase::parseIniFile(std::string filename)
 {
 
-  if (m_pFileBuf == nullptr)
+  if (!ensureFileBuffer())
   {
-    m_pFileBuf = (char*)malloc(SPCONFIG_FILEBUFSIZE);
-    if (m_pFileBuf == nullptr)
-    {
-      
 //ToDo
-      printf("spConfigBase::parseIniFile() could not allocate file buffer of size %d\n", SPCONFIG_FILEBUFSIZE);
-      return false;
-    }
+    printf("spConfigBase::parseIniFile() aborted\n");
+    return false;
   }
 
   m_filenameUsed = m_configFilePath + filename;
@@ -877,9 +896,10 @@ printf("spConfigBase::parseIniFile() for %s\n", m_filenameUsed.c_str());
 
   // attempt to read file
   int32_t received = readFile(m_filenameUsed, m_pFileBuf, 0, SPCONFIG_FILEBUFSIZE);
-  // return if nothing received
   if (received < 1)
   {
+  // release buffer and return failure
+    freeFileBuffer();
     return false;
   }
   
@@ -1033,7 +1053,7 @@ printf("spConfigBase::parseIniFile() for %s\n", m_filenameUsed.c_str());
   } // while (received > 0)
   
   // release buffer and return success
-  free(m_pFileBuf);
+  freeFileBuffer();
   return true;
 }
 
