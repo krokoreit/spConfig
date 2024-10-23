@@ -2,8 +2,8 @@
  * @file spConfigBase.cpp
  * @author krokoreit (krokoreit@gmail.com)
  * @brief class to handle configuration data
- * @version 2.1.0
- * @date 2024-10-09
+ * @version 2.1.1
+ * @date 2024-10-22
  * @copyright Copyright (c) 2024
  * 
  */
@@ -455,8 +455,7 @@ void spConfigBase::save()
 
   if (!ensureFileBuffer())
   {
-//ToDo
-    printf("spConfigBase::save() aborted\n");
+    spLOG_E("spConfigBase::save() aborted");
     return;
   }
 
@@ -470,9 +469,7 @@ void spConfigBase::save()
     m_filenameUsed.append(".");
     m_filenameUsed.append(m_configFileExtension);
   }
-
-// ToDo external print
-printf("saving %s\n", m_filenameUsed.c_str());
+  spLOGF_D("saving %s", m_filenameUsed.c_str());
 
   // init collection vars
   m_lastSection = "";
@@ -694,8 +691,7 @@ bool spConfigBase::ensureFileBuffer()
     m_pFileBuf = (char*)malloc(SPCONFIG_FILEBUFSIZE);
     if (m_pFileBuf == nullptr)
     {
-//ToDo
-      printf("spConfigBase::ensureFileBuffer() could not allocate file buffer of size %d\n", SPCONFIG_FILEBUFSIZE);
+      spLOGF_E("spConfigBase::ensureFileBuffer() could not allocate file buffer of size %d", SPCONFIG_FILEBUFSIZE);
       return false;
     }
   }
@@ -724,20 +720,14 @@ bool spConfigBase::saveIniEntryCB(const std::string &id, const spConfigValue &cv
 
   if (m_pFileBuf == nullptr)
   {
-   
-//ToDo
-printf("spConfigBase::saveIniEntryCB() failed because no file buffer allocated\n");
-
+    spLOG_E("spConfigBase::saveIniEntryCB() failed because no file buffer allocated");
     return false;
   }
 
   int sIdx = id.find("#/#", 0);
   if (sIdx == -1) // should not happen, but ...
   {
-
-//ToDo
-printf("spConfigBase::saveIniEntryCB called with bad id %s\n", id.c_str());
-
+    spLOGF_E("spConfigBase::saveIniEntryCB called with bad id %s", id.c_str());
     return true;
   }
   std::string section = id.substr(0, sIdx);
@@ -760,9 +750,7 @@ printf("spConfigBase::saveIniEntryCB called with bad id %s\n", id.c_str());
     len = snprintf(lineBuf, SPCONFIG_MAXLINELENGTH + 1, "[%s]\n", section.c_str());
     if (len > SPCONFIG_MAXLINELENGTH)
     {
-
-//ToDo
-      printf("spConfigBase::saveIniEntryCB: section entry %s exceeds maximum line length of %i\n", lineBuf, SPCONFIG_MAXLINELENGTH);
+      spLOGF_E("spConfigBase::saveIniEntryCB: section entry %s exceeds maximum line length of %i", lineBuf, SPCONFIG_MAXLINELENGTH);
     }
     if (len > 0)
     {
@@ -774,9 +762,7 @@ printf("spConfigBase::saveIniEntryCB called with bad id %s\n", id.c_str());
   len = snprintf(lineBuf, SPCONFIG_MAXLINELENGTH + 1, "%s=%s\n", key.c_str(), cv.c_str());
   if (len > SPCONFIG_MAXLINELENGTH)
   {
-
-//ToDo    
-    printf("spConfigBase::saveIniEntryCB: entry %s exceeds maximum line length of %i\n", lineBuf, SPCONFIG_MAXLINELENGTH);
+    spLOGF_E("spConfigBase::saveIniEntryCB: entry %s exceeds maximum line length of %i", lineBuf, SPCONFIG_MAXLINELENGTH);
   }
   if (len > 0)
   {
@@ -877,8 +863,7 @@ bool spConfigBase::parseIniFile(std::string filename)
 
   if (!ensureFileBuffer())
   {
-//ToDo
-    printf("spConfigBase::parseIniFile() aborted\n");
+    spLOG_E("spConfigBase::parseIniFile() aborted");
     return false;
   }
 
@@ -888,11 +873,7 @@ bool spConfigBase::parseIniFile(std::string filename)
     m_filenameUsed.append(".");
     m_filenameUsed.append(m_configFileExtension);
   }
-
-
-// ToDo external print
-printf("spConfigBase::parseIniFile() for %s\n", m_filenameUsed.c_str());    
-
+  spLOGF_D("spConfigBase::parseIniFile() for %s", m_filenameUsed.c_str());    
 
   // attempt to read file
   int32_t received = readFile(m_filenameUsed, m_pFileBuf, 0, SPCONFIG_FILEBUFSIZE);
@@ -945,10 +926,8 @@ printf("spConfigBase::parseIniFile() for %s\n", m_filenameUsed.c_str());
         }
         else
         {
-          
-//ToDo
           lineBuf[40] = 0;
-          printf("spConfigBase::parseIniFile(): line in %s starting with '%s...' exceeds maximum length of %d\n", m_filenameUsed.c_str(), lineBuf, SPCONFIG_MAXLINELENGTH);
+          spLOGF_E("spConfigBase::parseIniFile(): line in %s starting with '%s...' exceeds maximum length of %d", m_filenameUsed.c_str(), lineBuf, SPCONFIG_MAXLINELENGTH);
           c = '\n';
         }        
       }

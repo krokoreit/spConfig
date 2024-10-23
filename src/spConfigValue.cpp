@@ -1,8 +1,12 @@
 /**
  * @file spConfigValue.cpp
+ * @author krokoreit (krokoreit@gmail.com)
+ * @brief class to handle configuration data
+ * @version 2.0.1
+ * @date 2024-10-22
+ * @copyright Copyright (c) 2024
  * 
  */
-
 
 #include <spConfigValue.h>
 
@@ -494,8 +498,9 @@ void spConfigValue::copy(const char *cstr, unsigned int length)
       strncpy(content, cstr, 10);
       content[10] = '\0';
   
-  // ToDo
-      printf("spConfigValue failed to copy value %s, not enough space for %i bytes\n", content, length);
+      // error log
+      spLOGF_E("spConfigValue failed to copy value %s, not enough space for %i bytes\n", content, length);
+
       return;
   }
   memmove(m_buffer, cstr, length);

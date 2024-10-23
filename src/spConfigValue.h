@@ -2,20 +2,16 @@
  * @file spConfigValue.h
  * @author krokoreit (krokoreit@gmail.com)
  * @brief class to hold a config value
- * @version 2.0.0
- * @date 2024-06-10
+ * @version 2.0.1
+ * @date 2024-10-22
  * @copyright Copyright (c) 2024
  * 
+  * Version history:
+ * v1       original develoment for use in platformio / arduino for an ESP32 project
+ * v2.0.0   changed to standard C++ 
+ * v2.0.1   replaced printf() with spLogHelper
+ * 
  */
-
-
-/**
- * Version history:
- * v1 original develoment for use in platformio / arduino on an ESP32 project
- * v2 changed to standard C++ 
- *  
- */
-
 
 
 #ifndef SPCONFIGVALUE_H
@@ -24,6 +20,8 @@
 #include <stdint.h>
 #include <string>
 #include <string.h>
+
+#include <spLogHelper.h>
 
 
 class spConfigValue{

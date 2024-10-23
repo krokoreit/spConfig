@@ -2,8 +2,8 @@
  * @file spConfig.cpp
  * @author krokoreit (krokoreit@gmail.com)
  * @brief class to handle configuration values and files
- * @version 2.1.0
- * @date 2024-10-09
+ * @version 2.1.1
+ * @date 2024-10-22
  * @copyright Copyright (c) 2024
  * 
  */
@@ -72,9 +72,7 @@ size_t spConfig::readFile(std::string filename, char* buf, size_t startPos, size
   FILE *pFile = fopen(filename.c_str(), "r");
   if (!pFile)
   {
-    
-// ToDo
-    printf("spConfig::readFile() failed to get handle for %s\n", filename.c_str());
+    spLOGF_E("spConfig::readFile() failed to get handle for %s", filename.c_str());
     return 0;
   }
 
@@ -86,9 +84,7 @@ size_t spConfig::readFile(std::string filename, char* buf, size_t startPos, size
   size_t len = fread(buf, 1, maxBytes, pFile);
   if ((len != maxBytes) && (!feof(pFile)))
   {
-    
-// ToDo
-    printf("spConfig::readFile() received error when reading %s\n", filename.c_str());
+    spLOGF_E("spConfig::readFile() received error when reading %s", filename.c_str());
     len = 0;
   }
 
@@ -110,9 +106,7 @@ size_t spConfig::saveFile(std::string filename, char* buf, size_t startPos, size
   FILE *pFile = fopen(filename.c_str(), "w");
   if (!pFile)
   {
-    
-// ToDo
-    printf("spConfig::saveFile() failed to get handle for %s\n", filename.c_str());
+    spLOGF_E("spConfig::saveFile() failed to get handle for %s", filename.c_str());
     return 0;
   }
 
@@ -126,9 +120,7 @@ size_t spConfig::saveFile(std::string filename, char* buf, size_t startPos, size
   size_t len = fwrite(buf, 1, writeBytes, pFile);
   if (len != writeBytes)
   {
-    
-// ToDo
-    printf("spConfig::saveFile() received error while writing %s\n", filename.c_str());
+    spLOGF_E("spConfig::saveFile() received error while writing %s", filename.c_str());
     len = 0;
   }
 

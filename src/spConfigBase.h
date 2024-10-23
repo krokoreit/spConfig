@@ -2,14 +2,15 @@
  * @file spConfigBase.h
  * @author krokoreit (krokoreit@gmail.com)
  * @brief class to handle configuration data
- * @version 2.1.0
- * @date 2024-10-09
+ * @version 2.1.1
+ * @date 2024-10-22
  * @copyright Copyright (c) 2024
  * 
  * Version history:
  * v1       original develoment for use in platformio / arduino for an ESP32 project
  * v2.0.0   changed to standard C++ 
  * v2.1.0   updated to use spObjectStore v2.1.0
+ * v2.1.1   replaced printf() with spLogHelper
  *  
  */
 
@@ -23,6 +24,7 @@
 #include <string.h>
 #include <functional>
 
+#include <spLogHelper.h>
 #include <spObjectStore.h>
 #include <spConfigValue.h>
 
