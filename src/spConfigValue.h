@@ -2,14 +2,15 @@
  * @file spConfigValue.h
  * @author krokoreit (krokoreit@gmail.com)
  * @brief class to hold a config value
- * @version 2.0.1
- * @date 2024-10-22
+ * @version 2.1.2
+ * @date 2024-10-23
  * @copyright Copyright (c) 2024
  * 
-  * Version history:
+ * Version history:
  * v1       original develoment for use in platformio / arduino for an ESP32 project
  * v2.0.0   changed to standard C++ 
  * v2.0.1   replaced printf() with spLogHelper
+ * v2.1.2   minor updates (aligned version with other files)
  * 
  */
 

@@ -3,7 +3,7 @@
  * @author krokoreit (krokoreit@gmail.com)
  * @brief class to handle configuration values and files
  * @version 2.1.1
- * @date 2024-10-22
+ * @date 2024-10-23
  * @copyright Copyright (c) 2024
  * 
  * Version history:
@@ -11,6 +11,7 @@
  * v2.0.0   changed to standard C++ 
  * v2.1.0   updated to use spObjectStore v2.1.0
  * v2.1.1   replaced printf() with spLogHelper
+ * v2.1.2   minor updates
  *  
  */
 

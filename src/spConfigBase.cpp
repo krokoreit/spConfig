@@ -2,8 +2,8 @@
  * @file spConfigBase.cpp
  * @author krokoreit (krokoreit@gmail.com)
  * @brief class to handle configuration data
- * @version 2.1.1
- * @date 2024-10-22
+ * @version 2.1.2
+ * @date 2024-10-23
  * @copyright Copyright (c) 2024
  * 
  */
