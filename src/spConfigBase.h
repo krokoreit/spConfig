@@ -2,7 +2,7 @@
  * @file spConfigBase.h
  * @author krokoreit (krokoreit@gmail.com)
  * @brief class to handle configuration data
- * @version 2.1.2
+ * @version 2.1.3
  * @date 2024-10-23
  * @copyright Copyright (c) 2024
  * 
@@ -12,6 +12,7 @@
  * v2.1.0   updated to use spObjectStore v2.1.0
  * v2.1.1   replaced printf() with spLogHelper
  * v2.1.2   minor updates
+ * v2.1.3   current main
  *  
  */
 

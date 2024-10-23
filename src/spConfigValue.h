@@ -2,7 +2,7 @@
  * @file spConfigValue.h
  * @author krokoreit (krokoreit@gmail.com)
  * @brief class to hold a config value
- * @version 2.1.2
+ * @version 2.1.3
  * @date 2024-10-23
  * @copyright Copyright (c) 2024
  * 
@@ -11,6 +11,7 @@
  * v2.0.0   changed to standard C++ 
  * v2.0.1   replaced printf() with spLogHelper
  * v2.1.2   minor updates (aligned version with other files)
+ * v2.1.3   current main
  * 
  */
 
