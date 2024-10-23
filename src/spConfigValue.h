@@ -11,7 +11,7 @@
  * v2.0.0   changed to standard C++ 
  * v2.0.1   replaced printf() with spLogHelper
  * v2.1.2   minor updates (aligned version with other files)
- * v2.1.3   current main
+ * v2.1.3   align versioning
  * 
  */
 

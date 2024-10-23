@@ -12,7 +12,7 @@
  * v2.1.0   updated to use spObjectStore v2.1.0
  * v2.1.1   replaced printf() with spLogHelper
  * v2.1.2   minor updates
- * v2.1.3   current main
+ * v2.1.3   align versioning
  *  
  */
 
