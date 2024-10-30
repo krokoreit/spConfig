@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
   time_t now = time(nullptr);
   tm* local_tm = localtime(&now);
 
-  char todayString[7];
+  char todayString[9];
   sprintf(todayString, "%4d%02d%02d", local_tm->tm_year + 1900, local_tm->tm_mon + 1, local_tm->tm_mday);
 
   printf("todayString is %s\n", todayString);
