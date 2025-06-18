@@ -18,11 +18,11 @@
   [
     {
       "name": "spLogHelper",
-      "version": "https://github.com/krokoreit/spLogHelper.git#v1.0.1"
+      "version": "https://github.com/krokoreit/spLogHelper.git"
     },
     {
       "name": "spObjectStore",
-      "version": "https://github.com/krokoreit/spObjectStore.git#v2.1.3"
+      "version": "https://github.com/krokoreit/spObjectStore.git"
     }
   ],
   "exclude": [".github", ".git"],
